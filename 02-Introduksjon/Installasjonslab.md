@@ -1,5 +1,22 @@
 # Installasjonslab
 
+Du skal installere verktøy og opprette kontoer som det blir bruk for i kurset: 
+
+- [QGIS m/ GDAL/OGR](#qgis-m-gdalogr)
+    - [Hva er QGIS, GDAL/OGR og osgeo4w shell?](#hva-er-qgis-gdalogr-og-osgeo4w-shell)
+- [Rancher Desktop (eller Docker)](#rancher-desktop-eller-docker)
+    - [Hva er Rancher Desktop og containere?](#hva-er-rancher-desktop-og-containere)
+- [Github-konto](#github-konto)
+- [Visual Studio Code](#visual-studio-code)
+- [Postman / Thunderclient](#postman--thunderclient)
+    - [Thunderclient](#thunderclient)
+    - [Postman](#postman)
+- [Google Colab](#google-colab)
+- [Anaconda og Python-miljø](#anaconda-og-python-miljø)
+    - [Installere Anaconda](#installere-anaconda)
+    - [Opprette et Python-miljø](#opprette-et-python-miljø)
+- [Supabase-konto](#supabase-konto)
+
 ## QGIS m/ GDAL/OGR
 
 * Last ned siste long term release av QGIS fra https://qgis.org/
