@@ -26,11 +26,11 @@ Du skal installere verktøy og opprette kontoer som det blir bruk for i kurset:
 
 ### Hva er QGIS, GDAL/OGR og osgeo4w shell?
 
-**QGIS** er et gratis og åpen kildekode geografisk informasjonssystem (GIS) som lar brukere lage, redigere, visualisere, analysere og publisere geospatiale data.
+**QGIS** er et gratis og åpen kildekode geografisk informasjonssystem (GIS) som lar brukere lage, redigere, visualisere, analysere og publisere romlige data.
 
-**GDAL/OGR** er et bibliotek for å lese og skrive raster- og vektor geospatiale dataformater. GDAL håndterer rasterdata, mens OGR håndterer vektordata.
+**GDAL/OGR** er et bibliotek for å lese og skrive raster- og vektor romlige dataformater. GDAL håndterer rasterdata, mens OGR håndterer vektordata.
 
-**osgeo4w shell** er en kommandolinjegrensesnitt for OSGeo4W, en samling av åpen kildekode geospatiale verktøy og biblioteker for Windows, inkludert QGIS og GDAL/OGR.
+**osgeo4w shell** er en kommandolinjegrensesnitt for OSGeo4W, en samling av åpen kildekode romlige verktøy og biblioteker for Windows, inkludert QGIS og GDAL/OGR.
 
 ## Rancher Desktop (eller Docker)
 
@@ -104,3 +104,7 @@ Supabase er en åpen kildekode Firebase-alternativ som gir backend-tjenester som
 * Gå til https://supabase.com/
 * Opprett en konto og logg inn
 * Opprett et nytt prosjekt og utforsk funksjonene
+
+
+
+(skrevet ved hjelp av Github Copilot)
