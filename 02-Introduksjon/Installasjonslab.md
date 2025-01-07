@@ -22,7 +22,8 @@ Du skal installere verktøy og opprette kontoer som det blir bruk for i kurset:
 * Last ned siste long term release av QGIS fra https://qgis.org/
 * Fullfør installasjonen
 * Sjekk at 'QGIS desktop' fungerer
-* Sjekk at 'osgeo4w shell' fungerer
+* (*KUN for Windows*): Sjekk at 'osgeo4w shell' fungerer
+* (*KUN for Mac*): Installer GDAL via Homebrew: https://formulae.brew.sh/formula/gdal 
 
 ### Hva er QGIS, GDAL/OGR og osgeo4w shell?
 
