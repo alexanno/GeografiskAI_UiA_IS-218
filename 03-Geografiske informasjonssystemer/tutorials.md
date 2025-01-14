@@ -7,8 +7,9 @@
     - [Vector Tiles](#vector-tiles)
     - [WFS-kall](#wfs-kall)
     - [OGC-API Features](#ogc-api-features)
-    - [Cloud Native Geo-formater](#cloud-native-geo-formater)
     - [WCS](#wcs)
+    - [Cloud Native Geo-formater](#cloud-native-geo-formater)
+- [GDAL og ogr2ogr](#gdal-og-ogr2ogr) Innholdsfortegnelse
 
 ## Øvinger - OGC og API-standarder - prøv ut selv!
 
@@ -30,7 +31,7 @@ https://wms.geonorge.no/skwms1/wms.adm_enheter2?service=wms&request=GetCapabilit
 
 **Standard getmap-request**
 
-Eksempler på ulike getmap-requests. Prøv med forskjellige parametere. Endre på width/height, ta vekk transparent, endre på DPI. Hvilke layers er gyldige? (hint: GetCapabilities).
+Eksempler på ulike getmap-requests. Prøv med forskjellige parametere. Endre på width/height, ta vekk transparent, endre på DPI. Prøv ulike koordinatsystemer (crs). Hvilke layers er gyldige? (hint: GetCapabilities).
 
 (Avansert ekstraoppgave: Støtter tjenestene CQL-filtrering? Klarer du å endre style på layers?)
 
@@ -202,6 +203,15 @@ Når du lager en forespørsel til en OGC API Features-tjeneste, kan du bruke fle
 
 Disse parameterne hjelper deg med å tilpasse forespørselen for å hente de spesifikke geografiske dataene du trenger for ulike applikasjoner og analyser.
 
+
+
+
+### WCS
+Prøv ut WCS-requests med høydemodell fra Kartverket
+```js
+https://wcs.geonorge.no/skwms1/wcs.hoyde-dom-nhm-25832?SERVICE=WCS&VERSION=1.0.0&REQUEST=GetCoverage&FORMAT=GeoTIFF&COVERAGE=nhm_dom_topo_25832&BBOX=457053,6447058,457574,6447433&CRS=EPSG:25832&RESPONSE_CRS=EPSG:25832&WIDTH=521&HEIGHT=375
+```
+
 ### Cloud Native Geo-formater
 ***Cloud Optimized GeoTiff (COGs)***
 
@@ -213,13 +223,16 @@ COG-bilde: `https://adventofgis-data.ams3.digitaloceanspaces.com/Agder_og_Telema
 
 ![alt text](image.png)
 
+***FlatGeoBuf***
+Prøv ut en FlatGeoBuf på linken under (velg examples). Bruk developer console og følg med på innlastingen når du zoomer. 
 
-### WCS
-Prøv ut WCS-requests med høydemodell fra Kartverket
-```js
-https://wcs.geonorge.no/skwms1/wcs.hoyde-dom-nhm-25832?SERVICE=WCS&VERSION=1.0.0&REQUEST=GetCoverage&FORMAT=GeoTIFF&COVERAGE=nhm_dom_topo_25832&BBOX=457053,6447058,457574,6447433&CRS=EPSG:25832&RESPONSE_CRS=EPSG:25832&WIDTH=521&HEIGHT=375
-```
+https://flatgeobuf.org/ 
 
+## GDAL og ogr2ogr
+Prøv ut ogr2ogr i OSGEO4W-shell (for windows - terminal for mac). Tips: Bruk github copilot eller chatgpt for kommandoer
+* Konverter mellom ulike formater (fks shape til geojson)
+* Prøv koordinatsystem-konvertering med ogr2ogr (fks 25833 til 4326)
+* (avansert) Prøv SQL-filtrering og konvertering til geojson av et datasett med ogr2ogr.
 
 
 **Forfatter**
