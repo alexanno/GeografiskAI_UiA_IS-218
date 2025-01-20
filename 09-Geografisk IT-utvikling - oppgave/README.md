@@ -9,7 +9,7 @@
     * Omfatte 3 datasett
     * Ha basis brukerinteraksjon
     * Visualisere grunnlagsdata og resultat av analyse
-    * Være en fullstack-applikasjon med datalagring og frontend
+    * Være en fullstack-applikasjon med datalagring (postgis/supabase) og frontend (leaflet/maplibre/openlayers)
 * Teknologi er valgfri blant det som er forelest. Valg av teknologi må dokumenteres i README.
 * Løsningen skal ha en problemstilling innenfor enten klima/miljø eller samfunnsberedskap. Tema velger gruppen selv.
 
@@ -18,7 +18,7 @@
 * Utarbeid teknologivalg og arkitektur på `lagring`,(`backend/API`,) `frontend` 
 * Velg datasett og/eller tjenester fra åpne datakilder, eksempelvis: [GeoNorge](https://www.geonorge.no), [OpenStreetMap](https://www.openstreetmap.org), [Natural Earth](https://www.naturalearthdata.com).
 * Bearbeid data i QGIS, Python eller lignende.
-* Last inn data i database/lagringsmiljø
+* Last inn data i Supabase e.l.
 * Implementer tilstrekkelig backend / API
 * Implementer frontend og visualisering
 
