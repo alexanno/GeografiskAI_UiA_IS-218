@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet-kart</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <style>
+        #map {
+            height: 100vh;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<!-- Leaflet JavaScript -->
+<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+<script>
+    // Initialiser kartet og sett utsikts- og zoomnivå
+    var map = L.map('map').setView([20, 0], 2); // Globalt utsnitt
+
+    const tileurl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+
+    // Legg til OpenStreetMap tiles som bakgrunn
+    L.tileLayer(tileurl, {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Legg til WMS-lag
+    L.tileLayer.wms("https://openwms.statkart.no/skwms1/wms.spr_strandsoner?", {
+        layers: 'spr_strandsoner_wms',
+        format: 'image/png',
+        transparent: true,
+        attribution: '&copy; <a href="https://www.statkart.no">Statens Kartverk</a>'
+    }).addTo(map);
+
+
+    // Funksjon for å lage CircleMarker og legge til popup for hver feature
+    function onEachFeature(feature, layer) {
+            layer.bindPopup(`
+                <b>Navn:</b> ${feature.properties.adm0name} - ${feature.properties.name}<br>
+                <b>Land:</b> ${feature.properties.sov0name}<br>
+                <b>Populasjon:</b> ${feature.properties.pop_max}
+            `);
+    }
+
+    // Stilinnstillinger for CircleMarkers
+    function styleFeature(feature) {
+        return {
+            radius: 5,
+            color: 'green',
+            fillColor: 'red',
+            fillOpacity: 0.6
+        };
+    }
+
+
+
+    // Laste inn GeoJSON-data med fetch og legge til som lag
+    fetch('https://adventofgis-data.ams3.digitaloceanspaces.com/ne_10m_populated_places_simple.geojson')
+        .then(response => response.json())
+        .then(data => {
+            // Legger GeoJSON-data til kartet som CircleMarkers
+            L.geoJSON(data, {
+                pointToLayer: function(feature, latlng) {
+                    return L.circleMarker(latlng, styleFeature(feature));
+                },
+                onEachFeature: onEachFeature
+            }).addTo(map);
+        })
+        .catch(error => console.error('Kunne ikke laste GeoJSON-data:', error));
+
+
+        // Variabel for å lagre brukerens posisjon-marker
+        let userMarker = null;
+
+        // Funksjon for å oppdatere brukerens posisjon
+        function updateUserPosition(position) {
+            const { latitude, longitude } = position.coords;
+            
+            // Hvis markør allerede finnes, oppdater posisjonen, ellers opprett ny
+            if (userMarker) {
+                userMarker.setLatLng([latitude, longitude]);
+            } else {
+                userMarker = L.circleMarker([latitude, longitude], {
+                    radius: 10,
+                    color: 'blue',
+                    fillColor: 'blue',
+                    fillOpacity: 0.6
+                }).addTo(map).bindPopup("Du er her");
+                map.setView([latitude, longitude], 12);
+            }
+        }
+
+        // Sette opp geolokasjon som oppdateres hvert 5. sekund
+        if ("geolocation" in navigator) {
+            navigator.geolocation.watchPosition(updateUserPosition, 
+                error => console.error('Kunne ikke hente GPS-posisjon:', error), 
+                { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 });
+        } else {
+            console.error("Geolokasjon støttes ikke av denne nettleseren.");
+        }
+
+</script>
+
+</body>
+</html>

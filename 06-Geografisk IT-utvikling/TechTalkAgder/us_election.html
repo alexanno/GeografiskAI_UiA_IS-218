@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Presidential Election Map</title>
+    <link href="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; }
+        #map { position: absolute; top: 0; bottom: 0; width: 100%; }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script src="https://unpkg.com/maplibre-gl@1.15.2/dist/maplibre-gl.js"></script>
+    <script>
+        // Initialize MapLibre map
+        const map = new maplibregl.Map({
+            container: 'map',
+            style: 'https://demotiles.maplibre.org/style.json', // Standard MapLibre stil
+            center: [-98.5795, 39.8283], // Senter på USA
+            zoom: 3
+        });
+
+        map.on('load', () => {
+            // Load the GeoJSON data with election results
+            map.addSource('states', {
+                type: 'geojson',
+                data: 'https://adventofgis-data.ams3.digitaloceanspaces.com/merged_states_election_manual.geojson'
+            });
+
+            // Add a fill layer to visualize election results
+            map.addLayer({
+                id: 'state-fills',
+                type: 'fill',
+                source: 'states',
+                paint: {
+                    'fill-color': [
+                        'match',
+                        ['get', 'Winner'],
+                        'Democratic', '#3b82f6', // Blue for Democratic
+                        'Republican', '#ef4444', // Red for Republican
+                        '#ccc' // Gray as fallback
+                    ],
+                    'fill-opacity': 0.6
+                }
+            });
+/*
+            // Add an outline around each state
+            map.addLayer({
+                id: 'state-borders',
+                type: 'line',
+                source: 'states',
+                paint: {
+                    'line-color': '#ffffff',
+                    'line-width': 2
+                }
+            });
+*/
+            /* Add a 3D extrusion layer based on Turnout_Percentage
+            map.addLayer({
+                id: 'state-extrusion',
+                type: 'fill-extrusion',
+                source: 'states',
+                paint: {
+                    'fill-extrusion-color': [
+                        'match',
+                        ['get', 'Winner'],
+                        'Democratic', '#3b82f6', // Blue for Democratic
+                        'Republican', '#ef4444', // Red for Republican
+                        '#ccc' // Gray as fallback
+                    ],
+                    'fill-extrusion-height': [
+                        'interpolate',
+                        ['linear'],
+                        ['get', 'Turnout_Percentage'],
+                        0, 0,
+                        100, 500000 // Adjust the max height for visualization
+                    ],
+                    'fill-extrusion-opacity': 0.9
+                }
+            });
+            */
+
+            // Add a popup on click to display detailed information
+            map.on('click', 'state-fills', (e) => {
+                const properties = e.features[0].properties;
+                new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(`
+                        <strong>${properties.state}</strong><br>
+                        Democratic Votes: ${properties.Democratic_Votes}<br>
+                        Republican Votes: ${properties.Republican_Votes}<br>
+                        Winner: ${properties.Winner}<br>
+                        Turnout: ${properties.Turnout_Percentage}%
+                    `)
+                    .addTo(map);
+            });
+
+            // Change cursor to pointer when hovering over a state
+            map.on('mouseenter', 'state-fills', () => map.getCanvas().style.cursor = 'pointer');
+            map.on('mouseleave', 'state-fills', () => map.getCanvas().style.cursor = '');
+        });
+    </script>
+</body>
+</html>

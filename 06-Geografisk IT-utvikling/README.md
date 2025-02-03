@@ -1,10 +1,9 @@
-Uke                                                                 6
-Varighet                                                 Seminar - 3t
-Dato                                                 04.02.2025 12:15
-Modul                                         Geografisk IT-utvikling
-Gjesteforelesere                                            Alexander
-Ansvarlig                                             Håvard (fysisk)
-Tema                                          Geografisk webutvikling
-1. time             Geografisk utvikling og arkitektur: Hvordan he...
-2. time             Lage ulike kartvisualiseringer: Leaflet og Ope...
-3. time                                                 Leaflet-øving
+## 2. time: Visualisering og interaksjon
+**Walkthrough of examples**
+GirlTechFest examples require Maptiler key.
+
+* [TechTalkAgder - leaflet basic](./TechTalkAgder/leaflet.html)
+* [TechTalkAgder - Maplibre US Election](./TechTalkAgder/us_election.html)
+* [GirlTechFest - 2D color vector tiles](./girltechfest_demo/demo.html)
+* [GirlTechFest - 3D color vector tiles](./girltechfest_demo/demo3d.html)
+* [Advent of GIS - 04 - cluster, heatmap, pointmap](./AoG_04)
