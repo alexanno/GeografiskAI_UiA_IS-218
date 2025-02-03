@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet - Marker</title>
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+    <div id="mymap" style="height: 600px; width: 800px;"></div>
+    <script>
+        const myMap = L.map('mymap').setView([58.1633, 8.0025], 17);
+
+        const layer = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
+            attribution: '© Kartverket',
+            maxZoom: 18,
+        }).addTo(myMap);
+
+        const marker = L.marker([58.1633, 8.0025]).addTo(myMap);
+        marker.bindPopup("UiA").openPopup();
+    </script>
+</body>
+</html>

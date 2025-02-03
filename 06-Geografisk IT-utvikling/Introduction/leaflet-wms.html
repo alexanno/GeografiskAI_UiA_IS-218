@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaflet - WMS</title>
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.nontiledlayer@1.0.9/dist/NonTiledLayer.js"></script>
+</head>
+<body>
+    <div id="mymap" style="height: 600px; width: 800px;"></div>
+    <script>
+        const myMap = L.map('mymap').setView([58.1633, 8.0025], 17);
+
+        const layer = L.tileLayer('https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png', {
+            attribution: '© Kartverket',
+            maxZoom: 18,
+        }).addTo(myMap);
+
+        const wmsLayer = L.nonTiledLayer.wms('https://wms.geonorge.no/skwms1/wms.adm_enheter2', {
+            maxZoom: 18,
+            minZoom: 0,
+            opacity: 1.0,
+            layers: 'adm_enheter_V2_WMS',
+            format: 'image/png',
+            transparent: true,
+            attribution: '© Kartverket',
+        }).addTo(myMap);
+    </script>
+</body>
+</html>

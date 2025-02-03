@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MapLibre - GeoJSON</title>
+    <link href="https://unpkg.com/maplibre-gl@5.1.0/dist/maplibre-gl.css" rel="stylesheet">
+    <script src="https://unpkg.com/maplibre-gl@5.1.0/dist/maplibre-gl.js"></script>
+</head>
+<body>
+    <div id="mymap" style="height: 600px; width: 800px;"></div>
+    <script>
+        const myMap = new maplibregl.Map({
+            container: 'mymap',
+            style: {
+                'layers': [{
+                    'id': 'tile-layer',
+                    'source': 'raster-tiles',
+                    'type': 'raster',
+                    'minzoom': 0,
+                    'maxzoom': 18,
+                },{
+                    'id': 'point',
+                    'source': 'vector-data',
+                    'type': 'circle',
+                    'paint': {
+                        'circle-radius': 10,
+                        'circle-color': '#007700'
+                    },
+                    'filter': ['==', '$type', 'Point']
+                },{
+                    'id': 'linestring',
+                    'source': 'vector-data',
+                    'type': 'line',
+                    'filter': ['==', '$type', 'LineString'],
+                    'paint': {
+                        'line-color': '#0000ff',
+                        'line-width': 3,
+                    },
+                },{
+                    'id': 'polygon',
+                    'source': 'vector-data',
+                    'type': 'fill',
+                    'filter': ['==', '$type', 'Polygon'],
+                    'paint': {
+                        'fill-color': '#ff0000',
+                        'fill-opacity': 0.4,
+                    },
+                }],
+                'sources': {
+                    'raster-tiles': {
+                        'attribution': '© Kartverket',
+                        'tiles': [
+                            'https://cache.kartverket.no/v1/wmts/1.0.0/topo/default/webmercator/{z}/{y}/{x}.png',
+                        ],
+                        'tileSize': 256,
+                        'type': 'raster',
+                    },
+                    'vector-data': {
+                        'data': 'data.geojson',
+                        'type': 'geojson',
+                    },
+                },
+                'version': 8,
+            },
+            center: [8.0025, 58.1633],
+            zoom: 17,
+        });
+    </script>
+</body>
+</html>
