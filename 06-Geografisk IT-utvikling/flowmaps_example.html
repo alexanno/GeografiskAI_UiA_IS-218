@@ -22,31 +22,11 @@
 <div id="map"></div>
 
 <script>
-    /**
-     * MapTiler API key
-     */
-    let key = 'GXbuEV67O8DRFPCCVOQs';
-
     //senterpunktet for kartet
     let senterpunkt = [-30.0,45.0];
 
     //grunnstil for kartet
-    grunnstil = 'https://api.maptiler.com/maps/basic/style.json?key='+key;
-
-    //denne må du sette til 'true' for å aktivere fargelegging av kartet
-    let fargelegg = true;
-
-    // Her setter vi fargene til kartet
-    let bakgrunnsfarge = 'green'
-    let veifarge = 'red';
-    let bygningsfarge = 'rgba(70,0,50,0.7)';
-    let vannfarge = 'pink';
-    let skogfarge = 'red';
-    let gressfarge = 'orange'
-    let jernbanefarge = 'black'
-    let boligfarge = 'black';
-
-
+    grunnstil = 'https://demotiles.maplibre.org/style.json'; // Standard MapLibre stil
 
 
     // Initialiser kartet med MapTiler vektor tiles
