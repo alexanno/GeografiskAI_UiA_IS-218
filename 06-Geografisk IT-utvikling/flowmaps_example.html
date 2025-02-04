@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trade Flow Map with Great Circle</title>
+    <style>
+        body { margin: 0; height: 100vh; }
+        #map { width: 100%; height: 100%; }
+    </style>
+
+<script src="https://unpkg.com/maplibre-gl@^5.1.0/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@^5.1.0/dist/maplibre-gl.css" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+
+
+
+</head>
+<body>
+
+<div id="map"></div>
+
+<script>
+    /**
+     * MapTiler API key
+     */
+    let key = 'GXbuEV67O8DRFPCCVOQs';
+
+    //senterpunktet for kartet
+    let senterpunkt = [-30.0,45.0];
+
+    //grunnstil for kartet
+    grunnstil = 'https://api.maptiler.com/maps/basic/style.json?key='+key;
+
+    //denne må du sette til 'true' for å aktivere fargelegging av kartet
+    let fargelegg = true;
+
+    // Her setter vi fargene til kartet
+    let bakgrunnsfarge = 'green'
+    let veifarge = 'red';
+    let bygningsfarge = 'rgba(70,0,50,0.7)';
+    let vannfarge = 'pink';
+    let skogfarge = 'red';
+    let gressfarge = 'orange'
+    let jernbanefarge = 'black'
+    let boligfarge = 'black';
+
+
+
+
+    // Initialiser kartet med MapTiler vektor tiles
+    var map = new maplibregl.Map({
+        container: 'map', // ID til elementet der kartet skal vises
+        style: grunnstil, 
+        center: senterpunkt, // Kristiansand
+        zoom: 2 // Zoomnivå
+    });
+
+
+    // Trade data for the US and its top partners (in billion USD)
+    const tradeData = [
+        { country: "Mexico", lat: 23.6345, lon: -102.5528, tradeValue: 500.3 },
+        { country: "Canada", lat: 56.1304, lon: -106.3468, tradeValue: 1200.5 },
+        { country: "EU", lat: 50.8503, lon: 4.3517, tradeValue: 770.4 }
+    ];
+
+    // Normalize trade value for line thickness
+    function normalize(value, minVal, maxVal, minThickness = 5, maxThickness = 10) {
+        return minThickness + (maxThickness - minThickness) * (value - minVal) / (maxVal - minVal);
+    }
+
+
+    // Color scale for trade value
+    function getColor(value) {
+        return value > 1000 ? '#f03b20' :
+            value > 600 ? '#feb24c' :
+                value > 100 ? '#ffeda0' :
+                    '#ffffbf';
+    }
+
+    // Find the min and max trade values
+    const tradeValues = tradeData.map(d => d.tradeValue);
+    const minTrade = Math.min(...tradeValues);
+    const maxTrade = Math.max(...tradeValues);
+
+    // Function to create great circle lines using Turf.js
+    function createGreatCircleLine(start, end) {
+        const from = turf.point(start); // US coordinates (start point)
+        const to = turf.point(end); // Target country coordinates
+        const options = { steps: 100 }; // Adjust number of steps for smoother lines
+        return turf.greatCircle(from, to, options); // Returns a GeoJSON LineString
+    }
+
+    // Add trade flow lines to the map
+    tradeData.forEach(data => {
+        const thickness = normalize(data.tradeValue, minTrade, maxTrade);
+        
+        const color = getColor(data.tradeValue);
+        
+        console.log(thickness, data.tradeValue, minTrade, maxTrade);
+
+
+
+        const start = [-95.7129, 37.0902]; // US coordinates (approx center of US)
+        const end = [data.lon, data.lat]; // Target country's coordinates
+
+        // Create a great circle line
+        const tradeLine = createGreatCircleLine(start, end);
+
+        // Add the line to the map as a GeoJSON source and layer
+        map.on('load', () => {
+            map.addSource(`trade-line-${data.country}`, {
+                'type': 'geojson',
+                'data': tradeLine
+            });
+
+            map.addLayer({
+                'id': `trade-line-${data.country}`,
+                'type': 'line',
+                'source': `trade-line-${data.country}`,
+                'layout': {
+                    'line-cap': 'round',
+                    'line-join': 'round'
+                },
+                'paint': {
+                    'line-color': color,//'#feb24c',
+                    'line-width': thickness, // Line thickness based on trade volume
+                    'line-opacity': 1.0 // Line opacity
+                }
+            });
+
+            // Add a popup on click
+            map.on('click', `trade-line-${data.country}`, (e) => {
+                new maplibregl.Popup()
+                    .setLngLat(e.lngLat)
+                    .setHTML(`<strong>${data.country}</strong><br>Trade Value: ${data.tradeValue} billion USD`)
+                    .addTo(map);
+            });
+
+            // Change the cursor to a pointer when the mouse is over the line
+            map.on('mouseenter', `trade-line-${data.country}`, () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            // Change the cursor back to default when it leaves the line
+            map.on('mouseleave', `trade-line-${data.country}`, () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+        });
+    });
+</script>
+
+</body>
+</html>
