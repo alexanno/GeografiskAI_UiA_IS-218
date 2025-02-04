@@ -1,0 +1,68 @@
+{
+    "features": [
+        {
+            "geometry": {
+                "coordinates": [
+                    8.0025,
+                    58.1633
+                ],
+                "type": "Point"
+            },
+            "properties": {},
+            "type": "Feature"
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    [
+                        8.0011,
+                        58.1628
+                    ],
+                    [
+                        8.0021,
+                        58.1629
+                    ],
+                    [
+                        8.0026,
+                        58.1626
+                    ]
+                ],
+                "type": "LineString"
+            },
+            "type": "Feature",
+            "properties": {}
+        },
+        {
+            "geometry": {
+                "coordinates": [
+                    [
+                        [
+                            8.0013,
+                            58.1625
+                        ],
+                        [
+                            8.0019,
+                            58.1623
+                        ],
+                        [
+                            8.0028,
+                            58.1632
+                        ],
+                        [
+                            8.0021,
+                            58.1633
+                        ],
+                        [
+                            8.0013,
+                            58.1625
+                        ]
+                    ]
+                ],
+                "type": "Polygon"
+            },
+            "properties": {},
+            "type": "Feature"
+        }
+    ],
+    "type": "FeatureCollection"
+}
