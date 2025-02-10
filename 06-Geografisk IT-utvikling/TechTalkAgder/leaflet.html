@@ -31,7 +31,7 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-/*
+
     // Legg til WMS-lag
     L.tileLayer.wms("https://wms.geonorge.no/skwms1/wms.spr_strandsoner?", {
         layers: 'spr_strandsoner_wms',
@@ -39,12 +39,11 @@
         transparent: true,
         attribution: '&copy; <a href="https://www.statkart.no">Statens Kartverk</a>'
     }).addTo(map);
-*/
 
 
-/*
+
     // Funksjon for å lage CircleMarker og legge til popup for hver feature
-    function onEachFeature(feature, layer) {
+    function onEachFeature2(feature, layer) {
             layer.bindPopup(`
                 <b>Navn:</b> ${feature.properties.adm0name} - ${feature.properties.name}<br>
                 <b>Land:</b> ${feature.properties.sov0name}<br>
@@ -71,14 +70,12 @@
                 pointToLayer: function(feature, latlng) {
                     return L.circleMarker(latlng, styleFeature(feature));
                 },
-                onEachFeature: onEachFeature
+                onEachFeature: onEachFeature2
             }).addTo(map);
         })
         .catch(error => console.error('Kunne ikke laste GeoJSON-data:', error));
 
-*/
 
-/*
         // Variabel for å lagre brukerens posisjon-marker
         let userMarker = null;
 
@@ -108,7 +105,7 @@
         } else {
             console.error("Geolokasjon støttes ikke av denne nettleseren.");
         }
-        */
+
 
 </script>
 
