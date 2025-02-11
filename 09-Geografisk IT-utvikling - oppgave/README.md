@@ -1,6 +1,5 @@
 # Oppgave 2: Geografiske IT-utvikling
 
-# UTKAST!!
 
 ## **Målsetting og krav til innlevering**
 * Gruppen skal vise forståelse og kompetanse på bruk av fullstack geografisk IT-utvikling og geografisk analyse.
