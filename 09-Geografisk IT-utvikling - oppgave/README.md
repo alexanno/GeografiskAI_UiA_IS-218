@@ -4,7 +4,7 @@
 
 ## **Målsetting og krav til innlevering**
 * Gruppen skal vise forståelse og kompetanse på bruk av fullstack geografisk IT-utvikling og geografisk analyse.
-* Levere screenshots og/eller video av ferdig løsning med tilhørende beskrivelser i en README.md. Leveres som link til (åpent) github-repo. Kun README.md blir evaluert.
+* Levere screenshots og/eller en kort 10-20 sekunders video/gif av ferdig løsning med tilhørende beskrivelser av: Problemstillingen, valg av teknologi og datasett, og hvordan løsningen ble implementert i en README.md. Leveres som link til (åpent) github-repo. Kun README.md blir evaluert.
 * Minimumskrav til løsningen er: 
     * Omfatte 3 datasett
     * Ha basis brukerinteraksjon
