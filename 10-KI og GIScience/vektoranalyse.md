@@ -137,7 +137,7 @@ merged = gdf1.merge(gdf2, on="id")
 ![](./img/8a76c2bc3a77bf08103a204b1fdeab45.jpg)
 ---
 
-## Flerslagsanalyse
+## Flerlagsanalyse
 
 ### Overlagsoperasjoner
 Overlegg kombinerer kartlag for å skape ny informasjon.
@@ -189,8 +189,8 @@ Begrenser `roads`-laget til kun veier **inne i byen**.
 - **Split**: Deler et lag inn i flere basert på et annet lags geometri.
 
 ![Figure 7.11 - Vector Overlay Methods](img/a33268f6ff028c24152080d0aa3f2aad.jpg)
-
-
+**Spatial relationships / overlay methods**
+![Wikipedia spatial relationships](https://upload.wikimedia.org/wikipedia/commons/5/55/TopologicSpatialRelarions2.png)
 
 ### Concave, Convex Hull
 
