@@ -1,6 +1,7 @@
 # GISCience
 
 **Plan for dagen**
+* [Github Copilot og LLM-bruk](./github_copilot_spatial.md)
 * Kort om raster-analyser
     * https://saylordotorg.github.io/text_essentials-of-geographic-information-systems/s12-geospatial-analysis-ii-raster-.html
     * https://docs.qgis.org/3.40/en/docs/training_manual/rasters/index.html
