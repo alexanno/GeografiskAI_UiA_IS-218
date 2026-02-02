@@ -19,6 +19,11 @@ ORDER BY
 
 
 ### Hvilke bygninger er innenfor "stormflo"?
+**Konsept: Spatial JOIN med ST_Intersects**
+- `ST_Intersects()` sjekker om to geometrier overlapper eller berører hverandre
+- `INNER JOIN` returnerer kun rader hvor båte tabeller har matchende geometrier
+- Dette er en romlig spørring som kobler sammen data basert på geografisk posisjon
+
 ```sql
 SELECT 
     b.objectid,
@@ -44,6 +49,10 @@ ORDER BY objtype;
 ```
 
 ### Regn ut areal med `ST_Area()`, sorter og limit. 
+**Konsept: Geometriske beregninger og sortering**
+- `ST_Area()` beregner arealet av et polygon i samme enheter som koordinatsystemet (m² for UTM)
+- `ORDER BY DESC` og `LIMIT` brukes til å finne de største arealene
+
 ```sql
 -- Kan du regne ut kvadratkilometer?
 SELECT 
@@ -59,6 +68,12 @@ LIMIT 10;
 
 ## Finn alle flomsoner innenfor et rektangel definert med geojson
 Rektangelet kan du lage via geojson.io eller qgis
+
+**Konsept: Koordinatsystem-transformasjon (CRS)**
+- `ST_SetSRID()` setter koordinatsystemet (SRID) - 4326 = WGS84 (lat/lon), 25832 = UTM32
+- `ST_Transform()` konverterer fra ett koordinatsystem til et annet
+- Viktig: data må være i samme CRS før romlige operasjoner!
+- `ST_GeomFromText/GeoJSON()` konverterer tekst til geometri
 
 ### Fra WKT
 ```sql
@@ -98,7 +113,12 @@ WHERE ST_Intersects(
 );
 ```
 
-### Klipp geometrien som overlapper med st_intersection
+### Klipp geometrien som overlapper med ST_Intersection
+**Konsept: Geometriske operasjoner**
+- `ST_Intersection()` returnerer bare delen av geometrien som overlapper
+- Brukes når du skal "klippe ut" data innenfor et område
+- Resultatet er en ny geometri som er mindre enn den originale
+
 ```sql
 SELECT 
     objectid,
@@ -129,6 +149,11 @@ WHERE ST_Intersects(
 ```
 
 ### Enklere skrevet med CTE
+**Konsept: Common Table Expressions (CTE)**
+- `WITH` gjør spørringen lettere å lese ved å dele den inn i steg
+- `CROSS JOIN` med CTE gjør at samme geometri brukes flere ganger
+- Best practice: definer komplekse geometrier en gang, bruk flere ganger
+
 ```sql
 WITH bbox AS (
     SELECT 
@@ -154,6 +179,10 @@ WHERE ST_Intersects(shape, bbox.geom);
 
 ## Finn de 1000 nærmeste husene (i luftavstand) fra Brannstasjonen i Kristiansand
 ### Finn brannstasjonen i Kristiansand (QGIS fungerer også)
+**Konsept: Tekst-søk**
+- `LIKE` med `%` gjøre fleksibelt søk uten å vite det eksakte navnet
+- Returnerer ett resultat som basis for neste spørring
+
 ```sql
 SELECT * 
 FROM brannstasjoner b 
@@ -161,6 +190,11 @@ WHERE b.brannstasj LIKE 'Kristiansand%';
 ```
 
 ### Alternativ 1: Naiv (beregner alle distanser)
+**Konsept: Brute-force avstandsberegning**
+- `ST_Distance()` beregner avstanden i meter (samme enhet som CRS)
+- `CROSS JOIN` kombinerer hver bygning med brannstasjonen
+- **Problem**: Beregner avstanden for ALLE bygninger - veldig treg for store datasett!
+
 ```sql
 SELECT 
     b.objectid,
@@ -175,7 +209,13 @@ ORDER BY ST_Distance(b.geom, ST_Transform(s.msgeometry, 25832))
 LIMIT 1000;
 ```
 
-### Alternativ 2: Mye raskere - KNN med <->
+### Alternativ 2: Mye raskere - KNN (K-Nearest Neighbors) med <->
+**Konsept: Spatial indexing og KNN-operator**
+- `<->` er PostGIS sin avstandsoperator som bruker spatial index (veldig rask!)
+- KNN = "K-Nearest Neighbors" - databasen bruker indekser til å finne nærmeste elementer først
+- **Mange ganger raskere** enn alternativ 1, spesielt med stor datasett
+- Operator returnerer resultater sortert etter avstand
+
 ```sql
 SELECT 
     b.objectid,
@@ -190,7 +230,12 @@ ORDER BY b.geom <-> ST_Transform(s.msgeometry, 25832)
 LIMIT 1000;
 ```
 
-### Alternativ 3: Bruke CTE. Mest for "lesbarhet"
+### Alternativ 3: Bruke CTE. Mest for lesbarhet
+**Konsept: Best practice for vedlikehold og lesbarhet**
+- `WITH` gjør koden lettere å forstå - du ser hva som skjer steg for steg
+- Gjenbruk av CTE-resultatet reduserer behovet for å skrive kompleks geometri flere ganger
+- Kombinerer fordelen av lesbarhet (CTE) med ytelse (KNN-operator)
+
 ```sql
 WITH brannstasjon AS (
     SELECT 

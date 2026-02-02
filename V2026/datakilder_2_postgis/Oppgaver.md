@@ -33,4 +33,7 @@ https://supabase.com/docs/guides/database/extensions/postgis?queryGroups=languag
 Prøv å lage din egen geojson-sql-api som "edge function" på din Supabase konto
 * [Supabase GeoJSON SQL API](https://github.com/alexanno/supabase_geojson_sqlapi)
 
-
+# Flere ressurser
+* https://postgis.net/docs/reference.html
+* https://github.com/dkakkar/Geospatial-data-management-with-PostGIS
+* https://postgis.net/workshops/postgis-intro/
