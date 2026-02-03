@@ -5,7 +5,7 @@
 * Opprett en ny organisasjon og et prosjekt
 * Installer postgis som extension i "database"-panelet OBS!! Velg `public` som schema for extension (det er "feil" i dokumentasjonen). [Dokumentasjon](
 https://supabase.com/docs/guides/database/extensions/postgis?queryGroups=language&language=js&queryGroups=database-method&database-method=dashboard)
-* Koble til med dbeaver ved å bruke "transaction pooler"
+* Koble til med dbeaver ved å bruke "transaction pooler" eller "session pooler"
 * Koble til med qgis ved å legge til en postgis-server
 
 ## Last inn data til PostGIS serveren din
