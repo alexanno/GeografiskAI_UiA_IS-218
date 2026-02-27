@@ -1,1 +1,10 @@
 V2026/datakilder_2_postgis/supabase.credentials.env
+V2026/giscience/outputs/postgis_dump.duckdb
+V2026/giscience/outputs/geoparquet/arealbruk_skogbonitet_sample.parquet
+V2026/giscience/outputs/geoparquet/fotrute_senterlinje.parquet
+V2026/giscience/outputs/geoparquet/skiloype_senterlinje.parquet
+V2026/giscience/outputs/parquet/fotruteinfo_tabell.parquet
+.gitignore
+V2026/giscience/outputs/parquet/skiloypeinfo_tabell.parquet
+.DS_Store
+.env
