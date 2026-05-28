@@ -1,6 +1,8 @@
 
 ## **IS-218 Åpne Gruppebesvarelser 2026 – Oversikt**
 
+Oversikt over gruppeinnleveringer og prosjektoppgave i faget IS-218 Introduksjon til Geografisk IT og Kunstig Intelligens, våren 2026. Faget er valgfag på 2. års bachelor i IT og Informasjonssystemer. 
+
 | Gruppe | Prosjektnavn | Kort beskrivelse | GitHub-repo | Innleveringer |
 | ----- | ----- | ----- | ----- | ----- |
 | **0405** | Tilfluktsrom og flomrisiko (Kristiansand) | Interaktiv Web-GIS-app for Kristiansand som kartlegger hvordan stormflod og flom truer tilfluktsromkapasitet. Kobler offentlige tilfluktsrom med flomsoner fra NVE, med Python/QGIS-analyse og MapLibre GL JS-frontend. | [github.com/kJ4SPer/IS-218](https://github.com/kJ4SPer/IS-218) | [Samlet rapport](https://github.com/kJ4SPer/IS-218/tree/main/Oppgave%201) · [Oppgave 2](https://github.com/kJ4SPer/IS-218/tree/main/Oppgave%202) · [Prosjektskisse](https://github.com/kJ4SPer/IS-218/tree/main/Oppgave%203) · [Semesterprosjekt](https://github.com/kJ4SPer/IS-218/tree/main/Oppgave%204) |
